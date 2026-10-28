@@ -102,10 +102,7 @@ public:
         tables.push_back(RegularTable(8, 4));
         tables.push_back(FamilyTable(9, 6));
         tables.push_back(FamilyTable(10, 8));
-
-        // TABLE 11: Capacity 5, initially vacant
-        FamilyTable t11(11, 5);
-        tables.push_back(t11);
+        tables.push_back(FamilyTable(11, 5));
     }
 
     friend ostream& operator<<(ostream& out, const FoodCourt& fc) {
