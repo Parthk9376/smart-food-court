@@ -102,7 +102,7 @@ public:
         tables.push_back(RegularTable(8, 4));
         tables.push_back(FamilyTable(9, 6));
         tables.push_back(FamilyTable(10, 8));
-        tables.push_back(FamilyTable(11, 5));
+        tables.push_back(FamilyTable(11, 1));
     }
 
     friend ostream& operator<<(ostream& out, const FoodCourt& fc) {
