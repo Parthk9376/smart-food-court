@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,156 +6,667 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#111827">
 <title>Smart Food Court | Seat Display</title>
+
 <style>
-:root{--bg:#f4f6fb;--panel:#fff;--ink:#172033;--muted:#6b7280;--line:#e6eaf2;--green:#15803d;--green-bg:#dcfce7;--amber:#a16207;--amber-bg:#fef3c7;--red:#b91c1c;--red-bg:#fee2e2;--blue:#4338ca;--blue-bg:#e0e7ff;--shadow:0 12px 30px rgba(22,34,58,.06)}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:11px;padding:10px 14px;font-weight:700;transition:transform .12s,opacity .12s}button:active{transform:scale(.98)}button:disabled{opacity:.45;cursor:not-allowed}
-.topbar{background:#111827;color:#fff;padding:22px max(20px,calc((100% - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
-.brand{display:flex;gap:13px;align-items:center}.brand-icon{width:45px;height:45px;border-radius:14px;background:#4f46e5;display:grid;place-items:center;font-size:23px}.brand h1{font-size:20px;line-height:1.2;margin:0}.brand p{margin:5px 0 0;color:#b7c0d2;font-size:13px}.live{font-size:12px;color:#bbf7d0;display:flex;align-items:center;gap:7px}.dot{width:8px;height:8px;background:#4ade80;border-radius:50%}
-main{max-width:1180px;margin:28px auto;padding:0 20px 48px}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}.eyebrow{text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:800;color:var(--blue)}h2{font-size:28px;letter-spacing:-.035em;margin:4px 0 5px}.intro p{margin:0;color:var(--muted)}.outline{background:#fff;border:1px solid var(--line);color:#344054}.primary{background:var(--blue);color:white}.danger{background:var(--red-bg);color:var(--red)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:25px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}.stat-top{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:13px;font-weight:650}.stat-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:#f3f4f6;font-size:17px}.stat-num{font-size:29px;font-weight:800;letter-spacing:-.04em;margin-top:8px}.stat-sub{font-size:12px;color:var(--muted);margin-top:1px}
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:20px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:20px 20px 15px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.panel-head h3,.side h3{margin:0;font-size:17px}.panel-head p{margin:4px 0 0;font-size:13px;color:var(--muted)}.filters{display:flex;gap:7px;flex-wrap:wrap;padding:0 20px 17px}.filter{background:#f3f4f6;color:#4b5563;padding:7px 11px;font-size:12px;border:1px solid transparent}.filter.active{background:var(--blue-bg);color:var(--blue);border-color:#c7d2fe}.table-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 20px 20px}.table-card{border:1px solid var(--line);border-radius:15px;padding:15px;min-width:0;position:relative;overflow:hidden}.table-card:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#22c55e}.table-card.reserved:before{background:#f59e0b}.table-card.occupied:before{background:#ef4444}.table-card.selected{outline:2px solid var(--blue);outline-offset:1px}.table-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.table-name{font-size:15px;font-weight:800}.table-kind{font-size:11px;color:var(--muted);margin-top:2px}.status{font-size:10px;letter-spacing:.035em;font-weight:800;border-radius:999px;padding:5px 8px;white-space:nowrap}.vacant .status{color:var(--green);background:var(--green-bg)}.reserved .status{color:var(--amber);background:var(--amber-bg)}.occupied .status{color:var(--red);background:var(--red-bg)}.seats{display:flex;align-items:center;gap:4px;margin:18px 0 10px}.seat{height:7px;flex:1;border-radius:4px;background:#e5e7eb}.seat.filled{background:#6366f1}.seat-count{font-size:12px;color:var(--muted);margin-left:6px;white-space:nowrap}.table-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;border-top:1px solid #f0f2f7;padding-top:11px}.capacity{font-size:12px;color:var(--muted)}.small-btn{font-size:11px;padding:7px 10px;border-radius:8px;background:#eef2ff;color:#4338ca}.small-btn.release{background:#fff1f2;color:#be123c}.empty{padding:25px;text-align:center;color:var(--muted);grid-column:1/-1}
-.side{display:grid;gap:17px}.side .panel{padding:20px}.side h3{margin-bottom:5px}.side .sub{font-size:13px;color:var(--muted);margin:0 0 17px}.field{display:grid;gap:7px;margin-bottom:14px}.field label{font-size:12px;font-weight:750;color:#374151}.field input,.field select{width:100%;padding:11px 12px;border:1px solid #d8deea;border-radius:10px;background:#fff;color:var(--ink);outline:none}.field input:focus,.field select:focus{border-color:#818cf8;box-shadow:0 0 0 3px #e0e7ff}.full{width:100%}.hint{font-size:12px;color:var(--muted);margin:11px 0 0}.message{display:none;padding:11px 12px;border-radius:10px;margin:12px 0 0;font-size:13px}.message.show{display:block}.message.ok{background:var(--green-bg);color:var(--green)}.message.bad{background:var(--red-bg);color:var(--red)}.summary-row{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #edf0f5;font-size:13px}.summary-row:last-child{border-bottom:0}.summary-label{display:flex;align-items:center;gap:8px;color:#4b5563}.legend{width:9px;height:9px;border-radius:3px}.progress{height:8px;background:#eef0f6;border-radius:999px;overflow:hidden;margin:12px 0 5px}.progress-fill{height:100%;background:#6366f1;width:0;transition:width .25s}.footnote{font-size:11px;color:var(--muted);margin-top:15px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:white;padding:12px 17px;border-radius:12px;box-shadow:var(--shadow);font-size:13px;display:none;z-index:5;max-width:calc(100% - 30px)}.toast.show{display:block}
-@media(max-width:850px){.layout{grid-template-columns:1fr}.side{grid-template-columns:repeat(2,minmax(0,1fr))}.side .panel:first-child{grid-column:1/-1}}@media(max-width:580px){main{padding:0 12px 30px;margin-top:20px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.stat{padding:14px}.stat-num{font-size:25px}.table-grid{grid-template-columns:1fr;padding:0 12px 12px}.panel-head{padding:17px 12px 13px}.filters{padding:0 12px 13px}.side{grid-template-columns:1fr}.side .panel:first-child{grid-column:auto}.topbar{padding:18px 14px}h2{font-size:24px}}
+:root {
+  --bg:#f4f6fb;
+  --panel:#fff;
+  --ink:#172033;
+  --muted:#6b7280;
+  --line:#e6eaf2;
+  --green:#15803d;
+  --green-bg:#dcfce7;
+  --amber:#a16207;
+  --amber-bg:#fef3c7;
+  --red:#b91c1c;
+  --red-bg:#fee2e2;
+  --blue:#4338ca;
+  --blue-bg:#e0e7ff;
+  --shadow:0 12px 30px rgba(22,34,58,.06);
+}
+
+* { box-sizing:border-box; }
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.5 Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+button,input,select { font:inherit; }
+button {
+  cursor:pointer;
+  border:0;
+  border-radius:11px;
+  padding:10px 14px;
+  font-weight:700;
+}
+button:disabled { opacity:.45; cursor:not-allowed; }
+
+.topbar {
+  background:#111827;
+  color:#fff;
+  padding:22px max(20px,calc((100% - 1180px)/2));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.brand { display:flex; gap:13px; align-items:center; }
+.brand-icon {
+  width:45px;
+  height:45px;
+  border-radius:14px;
+  background:#4f46e5;
+  display:grid;
+  place-items:center;
+  font-size:23px;
+}
+.brand h1 { font-size:20px; line-height:1.2; margin:0; }
+.brand p { margin:5px 0 0; color:#b7c0d2; font-size:13px; }
+.live { font-size:12px; color:#bbf7d0; display:flex; align-items:center; gap:7px; }
+.dot { width:8px; height:8px; background:#4ade80; border-radius:50%; }
+
+main { max-width:1180px; margin:28px auto; padding:0 20px 48px; }
+.intro {
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+  margin-bottom:22px;
+}
+.eyebrow {
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:11px;
+  font-weight:800;
+  color:var(--blue);
+}
+h2 { font-size:28px; letter-spacing:-.035em; margin:4px 0 5px; }
+.intro p { margin:0; color:var(--muted); }
+
+.outline { background:#fff; border:1px solid var(--line); color:#344054; }
+.primary { background:var(--blue); color:white; }
+.danger { background:var(--red-bg); color:var(--red); }
+
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:25px;
+}
+.stat {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+.stat-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:650;
+}
+.stat-icon {
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:11px;
+  background:#f3f4f6;
+  font-size:17px;
+}
+.stat-num { font-size:29px; font-weight:800; letter-spacing:-.04em; margin-top:8px; }
+.stat-sub { font-size:12px; color:var(--muted); margin-top:1px; }
+
+.layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 310px;
+  gap:20px;
+  align-items:start;
+}
+.panel {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.panel-head {
+  padding:20px 20px 15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.panel-head h3,.side h3 { margin:0; font-size:17px; }
+.panel-head p { margin:4px 0 0; font-size:13px; color:var(--muted); }
+
+.filters { display:flex; gap:7px; flex-wrap:wrap; padding:0 20px 17px; }
+.filter {
+  background:#f3f4f6;
+  color:#4b5563;
+  padding:7px 11px;
+  font-size:12px;
+  border:1px solid transparent;
+}
+.filter.active { background:var(--blue-bg); color:var(--blue); border-color:#c7d2fe; }
+
+.table-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  padding:0 20px 20px;
+}
+.table-card {
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:15px;
+  min-width:0;
+  position:relative;
+  overflow:hidden;
+}
+.table-card:before {
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:#22c55e;
+}
+.table-card.reserved:before { background:#f59e0b; }
+.table-card.occupied:before { background:#ef4444; }
+
+.table-top {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:10px;
+}
+.table-name { font-size:15px; font-weight:800; }
+.table-kind { font-size:11px; color:var(--muted); margin-top:2px; }
+.status {
+  font-size:10px;
+  letter-spacing:.035em;
+  font-weight:800;
+  border-radius:999px;
+  padding:5px 8px;
+  white-space:nowrap;
+}
+.vacant .status { color:var(--green); background:var(--green-bg); }
+.reserved .status { color:var(--amber); background:var(--amber-bg); }
+.occupied .status { color:var(--red); background:var(--red-bg); }
+
+.seats { display:flex; align-items:center; gap:4px; margin:18px 0 10px; }
+.seat { height:7px; flex:1; border-radius:4px; background:#e5e7eb; }
+.seat.filled { background:#6366f1; }
+.seat-count { font-size:12px; color:var(--muted); margin-left:6px; white-space:nowrap; }
+
+.table-bottom {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  border-top:1px solid #f0f2f7;
+  padding-top:11px;
+}
+.capacity { font-size:12px; color:var(--muted); }
+.small-btn {
+  font-size:11px;
+  padding:7px 10px;
+  border-radius:8px;
+  background:#eef2ff;
+  color:#4338ca;
+}
+.small-btn.release { background:#fff1f2; color:#be123c; }
+.empty { padding:25px; text-align:center; color:var(--muted); grid-column:1/-1; }
+
+.side { display:grid; gap:17px; }
+.side .panel { padding:20px; }
+.side h3 { margin-bottom:5px; }
+.side .sub { font-size:13px; color:var(--muted); margin:0 0 17px; }
+
+.field { display:grid; gap:7px; margin-bottom:14px; }
+.field label { font-size:12px; font-weight:750; color:#374151; }
+.field input {
+  width:100%;
+  padding:11px 12px;
+  border:1px solid #d8deea;
+  border-radius:10px;
+  background:#fff;
+  color:var(--ink);
+  outline:none;
+}
+.field input:focus { border-color:#818cf8; box-shadow:0 0 0 3px #e0e7ff; }
+.full { width:100%; }
+.hint { font-size:12px; color:var(--muted); margin:11px 0 0; }
+
+.message { display:none; padding:11px 12px; border-radius:10px; margin:12px 0 0; font-size:13px; }
+.message.show { display:block; }
+.message.ok { background:var(--green-bg); color:var(--green); }
+.message.bad { background:var(--red-bg); color:var(--red); }
+
+.summary-row {
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid #edf0f5;
+  font-size:13px;
+}
+.summary-row:last-child { border-bottom:0; }
+.summary-label { display:flex; align-items:center; gap:8px; color:#4b5563; }
+.legend { width:9px; height:9px; border-radius:3px; }
+.progress { height:8px; background:#eef0f6; border-radius:999px; overflow:hidden; margin:12px 0 5px; }
+.progress-fill { height:100%; background:#6366f1; width:0; transition:width .25s; }
+.footnote { font-size:11px; color:var(--muted); margin-top:15px; }
+.toast {
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111827;
+  color:white;
+  padding:12px 17px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  font-size:13px;
+  display:none;
+  z-index:5;
+  max-width:calc(100% - 30px);
+}
+.toast.show { display:block; }
+
+@media(max-width:850px) {
+  .layout { grid-template-columns:1fr; }
+  .side { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .side .panel:first-child { grid-column:1/-1; }
+}
+@media(max-width:580px) {
+  main { padding:0 12px 30px; margin-top:20px; }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .stat { padding:14px; }
+  .stat-num { font-size:25px; }
+  .table-grid { grid-template-columns:1fr; padding:0 12px 12px; }
+  .panel-head { padding:17px 12px 13px; }
+  .filters { padding:0 12px 13px; }
+  .side { grid-template-columns:1fr; }
+  .side .panel:first-child { grid-column:auto; }
+  .topbar { padding:18px 14px; }
+  h2 { font-size:24px; }
+}
 </style>
 </head>
+
 <body>
 <header class="topbar">
-  <div class="brand"><div class="brand-icon">🍽️</div><div><h1>Smart Food Court</h1><p>Seat Display & Table Management</p></div></div>
+  <div class="brand">
+    <div class="brand-icon">🍽️</div>
+    <div>
+      <h1>Smart Food Court</h1>
+      <p>Seat Display & Table Management</p>
+    </div>
+  </div>
   <div class="live"><span class="dot"></span> LIVE DASHBOARD <span style="color:#718096">•</span> <span id="clock">--:--</span></div>
 </header>
+
 <main>
   <section class="intro">
-    <div><div class="eyebrow">Operations overview</div><h2>Table dashboard</h2><p>Manage seating, track occupancy, and keep service moving.</p></div>
+    <div>
+      <div class="eyebrow">Operations overview</div>
+      <h2>Table dashboard</h2>
+      <p>Manage seating, track occupancy, and keep service moving.</p>
+    </div>
     <button class="outline" id="resetBtn" title="Clears all table assignments">↻ Reset demo</button>
   </section>
+
   <section class="stats" aria-label="Food court statistics">
-    <div class="stat"><div class="stat-top">Total tables <span class="stat-icon">▦</span></div><div class="stat-num" id="totalStat">10</div><div class="stat-sub">Across the food court</div></div>
-    <div class="stat"><div class="stat-top">Vacant <span class="stat-icon">✓</span></div><div class="stat-num" id="vacantStat">10</div><div class="stat-sub">Ready for customers</div></div>
-    <div class="stat"><div class="stat-top">Partially occupied <span class="stat-icon">◷</span></div><div class="stat-num" id="reservedStat">0</div><div class="stat-sub">Seats still available at table</div></div>
-    <div class="stat"><div class="stat-top">Occupied <span class="stat-icon">●</span></div><div class="stat-num" id="occupiedStat">0</div><div class="stat-sub">At full capacity</div></div>
+    <div class="stat">
+      <div class="stat-top">Total tables <span class="stat-icon">▦</span></div>
+      <div class="stat-num" id="totalStat">11</div>
+      <div class="stat-sub">Across the food court</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top">Vacant <span class="stat-icon">✓</span></div>
+      <div class="stat-num" id="vacantStat">11</div>
+      <div class="stat-sub">Ready for customers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top">Partially occupied <span class="stat-icon">◷</span></div>
+      <div class="stat-num" id="reservedStat">0</div>
+      <div class="stat-sub">Seats still available at table</div>
+    </div>
+    <div class="stat">
+      <div class="stat-top">Occupied <span class="stat-icon">●</span></div>
+      <div class="stat-num" id="occupiedStat">0</div>
+      <div class="stat-sub">At full capacity</div>
+    </div>
   </section>
+
   <div class="layout">
     <section class="panel">
-      <div class="panel-head"><div><h3>All tables</h3><p>Select a table to view its status and available actions.</p></div><span id="tableCount" style="font-size:12px;color:#6b7280">10 tables</span></div>
+      <div class="panel-head">
+        <div>
+          <h3>All tables</h3>
+          <p>Select a table to view its status and available actions.</p>
+        </div>
+        <span id="tableCount" style="font-size:12px;color:#6b7280">11 tables</span>
+      </div>
+
       <div class="filters" role="group" aria-label="Filter tables">
         <button class="filter active" data-filter="all">All tables</button>
         <button class="filter" data-filter="vacant">Vacant</button>
         <button class="filter" data-filter="reserved">Partially occupied</button>
         <button class="filter" data-filter="occupied">Occupied</button>
       </div>
+
       <div class="table-grid" id="tableGrid"></div>
     </section>
+
     <aside class="side">
       <section class="panel">
-        <h3>Assign customers</h3><p class="sub">We'll find the smallest vacant table that fits your group, just like the C++ program.</p>
+        <h3>Assign customers</h3>
+        <p class="sub">We'll find the smallest vacant table that fits your group.</p>
         <form id="seatForm">
-          <div class="field"><label for="people">Number of people</label><input id="people" type="number" min="1" max="8" placeholder="e.g. 3" required></div>
+          <div class="field">
+            <label for="people">Number of people</label>
+            <input id="people" type="number" min="1" max="8" placeholder="e.g. 3" required>
+          </div>
           <button class="primary full" type="submit">✦ Find best table</button>
         </form>
         <div id="seatMessage" class="message" role="status" aria-live="polite"></div>
-        <p class="hint">Table assignment is best-fit: the smallest available capacity that can seat your group.</p>
+        <p class="hint">The smallest available table that fits your group will be assigned.</p>
       </section>
+
       <section class="panel">
-        <h3>Occupancy summary</h3><p class="sub">Current table distribution</p>
-        <div class="summary-row"><span class="summary-label"><span class="legend" style="background:#22c55e"></span>Vacant</span><strong id="vacantSummary">10</strong></div>
-        <div class="summary-row"><span class="summary-label"><span class="legend" style="background:#f59e0b"></span>Partially occupied</span><strong id="reservedSummary">0</strong></div>
-        <div class="summary-row"><span class="summary-label"><span class="legend" style="background:#ef4444"></span>Occupied</span><strong id="occupiedSummary">0</strong></div>
+        <h3>Occupancy summary</h3>
+        <p class="sub">Current table distribution</p>
+        <div class="summary-row">
+          <span class="summary-label"><span class="legend" style="background:#22c55e"></span>Vacant</span>
+          <strong id="vacantSummary">11</strong>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label"><span class="legend" style="background:#f59e0b"></span>Partially occupied</span>
+          <strong id="reservedSummary">0</strong>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label"><span class="legend" style="background:#ef4444"></span>Occupied</span>
+          <strong id="occupiedSummary">0</strong>
+        </div>
         <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
-        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6b7280"><span>Tables in use</span><strong id="usageText">0%</strong></div>
-        <p class="footnote">Demo note: table status is saved in this browser using local storage. Other visitors/devices won't share the same live state.</p>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#6b7280">
+          <span>Tables in use</span><strong id="usageText">0%</strong>
+        </div>
+        <p class="footnote">Table status is saved in this browser. Other devices will not share the same state.</p>
       </section>
     </aside>
   </div>
 </main>
+
 <div class="toast" id="toast" role="status"></div>
+
 <script>
 const initialTables = [
-  {id:1,capacity:2,type:"Regular"},{id:2,capacity:2,type:"Regular"},
-  {id:3,capacity:4,type:"Regular"},{id:4,capacity:6,type:"Family"},
-  {id:5,capacity:8,type:"Family"},{id:6,capacity:2,type:"Regular"},
-  {id:7,capacity:4,type:"Regular"},{id:8,capacity:4,type:"Regular"},
-  {id:9,capacity:6,type:"Family"},{id:10,capacity:8,type:"Family"}
+  {id:1,capacity:2,type:"Regular"},
+  {id:2,capacity:2,type:"Regular"},
+  {id:3,capacity:4,type:"Regular"},
+  {id:4,capacity:6,type:"Family"},
+  {id:5,capacity:8,type:"Family"},
+  {id:6,capacity:2,type:"Regular"},
+  {id:7,capacity:4,type:"Regular"},
+  {id:8,capacity:4,type:"Regular"},
+  {id:9,capacity:6,type:"Family"},
+  {id:10,capacity:8,type:"Family"},
+  {id:11,capacity:5,type:"Family"}
 ];
-const STORAGE_KEY = "smartFoodCourtTables_v1";
+
+// New storage key avoids loading old saved data for only 10 tables.
+const STORAGE_KEY = "smartFoodCourtTables_v2";
 let tables = loadTables();
 let activeFilter = "all";
-function loadTables(){
-  try{
+
+function loadTables() {
+  try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if(Array.isArray(saved) && saved.length === initialTables.length) {
+
+    if (Array.isArray(saved) && saved.length === initialTables.length) {
       return initialTables.map(t => {
         const s = saved.find(x => x.id === t.id);
-        const occupants = s && Number.isInteger(s.occupants) && s.occupants >= 0 && s.occupants <= t.capacity ? s.occupants : 0;
+        const occupants =
+          s && Number.isInteger(s.occupants) &&
+          s.occupants >= 0 && s.occupants <= t.capacity
+            ? s.occupants : 0;
+
         return {...t, occupants};
       });
     }
-  }catch(e){}
-  return initialTables.map(t=>({...t,occupants:0}));
+  } catch (e) {
+    console.warn("Could not load saved tables.", e);
+  }
+
+  return initialTables.map(t => ({...t, occupants:0}));
 }
-function statusOf(t){if(t.occupants===0)return "vacant";if(t.occupants===t.capacity)return "occupied";return "reserved"}
-function statusLabel(t){return ({vacant:"VACANT",reserved:"PARTIALLY OCCUPIED",occupied:"OCCUPIED"})[statusOf(t)]}
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(tables.map(t=>({id:t.id,occupants:t.occupants}))));}catch(e){}}
-function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function render(){
-  const counts={vacant:0,reserved:0,occupied:0};
-  tables.forEach(t=>counts[statusOf(t)]++);
-  document.getElementById("totalStat").textContent=tables.length;
-  document.getElementById("vacantStat").textContent=counts.vacant;
-  document.getElementById("reservedStat").textContent=counts.reserved;
-  document.getElementById("occupiedStat").textContent=counts.occupied;
-  document.getElementById("vacantSummary").textContent=counts.vacant;
-  document.getElementById("reservedSummary").textContent=counts.reserved;
-  document.getElementById("occupiedSummary").textContent=counts.occupied;
-  const inUse=tables.length-counts.vacant, pct=Math.round(inUse/tables.length*100);
-  document.getElementById("progressFill").style.width=pct+"%";
-  document.getElementById("usageText").textContent=pct+"%";
-  const shown=tables.filter(t=>activeFilter==="all"||statusOf(t)===activeFilter);
-  document.getElementById("tableCount").textContent=shown.length+" of "+tables.length+" tables";
-  const grid=document.getElementById("tableGrid");
-  if(!shown.length){grid.innerHTML='<div class="empty">No tables match this filter.</div>';return;}
-  grid.innerHTML=shown.map(t=>{
-    const status=statusOf(t), seats=Array.from({length:t.capacity},(_,i)=>`<span class="seat ${i<t.occupants?"filled":""}"></span>`).join("");
-    return `<article class="table-card ${status}" aria-label="Table ${t.id}, ${statusLabel(t)}, ${t.occupants} of ${t.capacity} people">
-      <div class="table-top"><div><div class="table-name">Table ${String(t.id).padStart(2,"0")}</div><div class="table-kind">${t.type} table</div></div><span class="status">${statusLabel(t)}</span></div>
-      <div class="seats">${seats}<span class="seat-count">${t.occupants}/${t.capacity}</span></div>
-      <div class="table-bottom"><span class="capacity">Capacity: ${t.capacity}</span>
-      ${status==="vacant"?`<button class="small-btn" data-seat="${t.id}">Assign</button>`:`<button class="small-btn release" data-release="${t.id}">Release</button>`}
-      </div></article>`;
+
+function statusOf(t) {
+  if (t.occupants === 0) return "vacant";
+  if (t.occupants === t.capacity) return "occupied";
+  return "reserved";
+}
+
+function statusLabel(t) {
+  return ({
+    vacant:"VACANT",
+    reserved:"PARTIALLY OCCUPIED",
+    occupied:"OCCUPIED"
+  })[statusOf(t)];
+}
+
+function save() {
+  try {
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(tables.map(t => ({id:t.id, occupants:t.occupants})))
+    );
+  } catch (e) {
+    console.warn("Could not save table state.", e);
+  }
+}
+
+function render() {
+  const counts = {vacant:0, reserved:0, occupied:0};
+
+  tables.forEach(t => counts[statusOf(t)]++);
+
+  document.getElementById("totalStat").textContent = tables.length;
+  document.getElementById("vacantStat").textContent = counts.vacant;
+  document.getElementById("reservedStat").textContent = counts.reserved;
+  document.getElementById("occupiedStat").textContent = counts.occupied;
+
+  document.getElementById("vacantSummary").textContent = counts.vacant;
+  document.getElementById("reservedSummary").textContent = counts.reserved;
+  document.getElementById("occupiedSummary").textContent = counts.occupied;
+
+  const inUse = tables.length - counts.vacant;
+  const pct = Math.round(inUse / tables.length * 100);
+
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("usageText").textContent = pct + "%";
+
+  const shown = tables.filter(
+    t => activeFilter === "all" || statusOf(t) === activeFilter
+  );
+
+  document.getElementById("tableCount").textContent =
+    shown.length + " of " + tables.length + " tables";
+
+  const grid = document.getElementById("tableGrid");
+
+  if (!shown.length) {
+    grid.innerHTML = '<div class="empty">No tables match this filter.</div>';
+    return;
+  }
+
+  grid.innerHTML = shown.map(t => {
+    const status = statusOf(t);
+    const seats = Array.from(
+      {length:t.capacity},
+      (_,i) => `<span class="seat ${i < t.occupants ? "filled" : ""}"></span>`
+    ).join("");
+
+    return `
+      <article class="table-card ${status}"
+        aria-label="Table ${t.id}, ${statusLabel(t)}, ${t.occupants} of ${t.capacity} people">
+        <div class="table-top">
+          <div>
+            <div class="table-name">Table ${String(t.id).padStart(2,"0")}</div>
+            <div class="table-kind">${t.type} table</div>
+          </div>
+          <span class="status">${statusLabel(t)}</span>
+        </div>
+
+        <div class="seats">
+          ${seats}
+          <span class="seat-count">${t.occupants}/${t.capacity}</span>
+        </div>
+
+        <div class="table-bottom">
+          <span class="capacity">Capacity: ${t.capacity}</span>
+          ${
+            status === "vacant"
+              ? `<button class="small-btn" data-seat="${t.id}">Assign</button>`
+              : `<button class="small-btn release" data-release="${t.id}">Release</button>`
+          }
+        </div>
+      </article>
+    `;
   }).join("");
 }
-function showMessage(text,type){const el=document.getElementById("seatMessage");el.textContent=text;el.className="message show "+type;}
-function notify(text){const el=document.getElementById("toast");el.textContent=text;el.classList.add("show");clearTimeout(notify.timer);notify.timer=setTimeout(()=>el.classList.remove("show"),2400);}
-function seatGroup(count){
-  if(!Number.isInteger(count)||count<=0){showMessage("Enter a valid number of people greater than zero.","bad");return;}
-  const best=tables.filter(t=>t.occupants===0&&t.capacity>=count).sort((a,b)=>a.capacity-b.capacity||a.id-b.id)[0];
-  if(!best){showMessage(`No vacant table can fit ${count} people. Try a smaller group or release a table.`, "bad");return;}
-  best.occupants=count;save();render();showMessage(`Success! Table ${best.id} assigned to ${count} ${count===1?"person":"people"}.`,"ok");notify(`Table ${best.id} assigned successfully.`);
+
+function showMessage(text, type) {
+  const el = document.getElementById("seatMessage");
+  el.textContent = text;
+  el.className = "message show " + type;
 }
-function release(id){
-  const t=tables.find(x=>x.id===id);if(!t)return;
-  if(t.occupants===0){notify(`Table ${id} is already vacant.`);return;}
-  const previous=t.occupants;t.occupants=0;save();render();notify(`Table ${id} released (${previous} ${previous===1?"person":"people"}).`);
+
+function notify(text) {
+  const el = document.getElementById("toast");
+  el.textContent = text;
+  el.classList.add("show");
+
+  clearTimeout(notify.timer);
+  notify.timer = setTimeout(() => el.classList.remove("show"), 2400);
 }
-document.getElementById("seatForm").addEventListener("submit",e=>{e.preventDefault();seatGroup(Number(document.getElementById("people").value));});
-document.getElementById("tableGrid").addEventListener("click",e=>{
-  const seatBtn=e.target.closest("[data-seat]"), releaseBtn=e.target.closest("[data-release]");
-  if(seatBtn){document.getElementById("people").focus();document.getElementById("people").value="";showMessage(`Enter the group size above to assign the best-fit table.`, "ok");}
-  if(releaseBtn)release(Number(releaseBtn.dataset.release));
-});
-document.querySelectorAll("[data-filter]").forEach(btn=>btn.addEventListener("click",()=>{
-  activeFilter=btn.dataset.filter;
-  document.querySelectorAll("[data-filter]").forEach(b=>b.classList.toggle("active",b===btn));
+
+function seatGroup(count) {
+  if (!Number.isInteger(count) || count <= 0 || count > 8) {
+    showMessage("Enter a valid group size between 1 and 8.", "bad");
+    return;
+  }
+
+  const best = tables
+    .filter(t => t.occupants === 0 && t.capacity >= count)
+    .sort((a,b) => a.capacity - b.capacity || a.id - b.id)[0];
+
+  if (!best) {
+    showMessage(
+      `No vacant table can fit ${count} people. Try a smaller group or release a table.`,
+      "bad"
+    );
+    return;
+  }
+
+  best.occupants = count;
+  save();
   render();
-}));
-document.getElementById("resetBtn").addEventListener("click",()=>{
-  if(confirm("Reset all tables to vacant? This clears saved assignments in this browser.")){
-    tables=initialTables.map(t=>({...t,occupants:0}));save();render();
-    document.getElementById("seatMessage").className="message";
-    notify("All tables have been reset.");
+
+  showMessage(
+    `Success! Table ${best.id} assigned to ${count} ${count === 1 ? "person" : "people"}.`,
+    "ok"
+  );
+  notify(`Table ${best.id} assigned successfully.`);
+}
+
+function release(id) {
+  const t = tables.find(x => x.id === id);
+  if (!t) return;
+
+  if (t.occupants === 0) {
+    notify(`Table ${id} is already vacant.`);
+    return;
+  }
+
+  const previous = t.occupants;
+  t.occupants = 0;
+
+  save();
+  render();
+
+  notify(`Table ${id} released (${previous} ${previous === 1 ? "person" : "people"}).`);
+}
+
+document.getElementById("seatForm").addEventListener("submit", e => {
+  e.preventDefault();
+  seatGroup(Number(document.getElementById("people").value));
+});
+
+document.getElementById("tableGrid").addEventListener("click", e => {
+  const seatBtn = e.target.closest("[data-seat]");
+  const releaseBtn = e.target.closest("[data-release]");
+
+  if (seatBtn) {
+    document.getElementById("people").focus();
+    document.getElementById("people").value = "";
+    showMessage("Enter the group size above to assign the best-fit table.", "ok");
+  }
+
+  if (releaseBtn) {
+    release(Number(releaseBtn.dataset.release));
   }
 });
-function updateClock(){document.getElementById("clock").textContent=new Intl.DateTimeFormat(undefined,{hour:"2-digit",minute:"2-digit"}).format(new Date());}
-updateClock();setInterval(updateClock,30000);render();
+
+document.querySelectorAll("[data-filter]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    activeFilter = btn.dataset.filter;
+
+    document.querySelectorAll("[data-filter]").forEach(b => {
+      b.classList.toggle("active", b === btn);
+    });
+
+    render();
+  });
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (confirm("Reset all 11 tables to vacant? This clears saved assignments in this browser.")) {
+    tables = initialTables.map(t => ({...t, occupants:0}));
+    save();
+    render();
+
+    document.getElementById("seatMessage").className = "message";
+    notify("All 11 tables have been reset.");
+  }
+});
+
+function updateClock() {
+  document.getElementById("clock").textContent =
+    new Intl.DateTimeFormat(undefined, {
+      hour:"2-digit",
+      minute:"2-digit"
+    }).format(new Date());
+}
+
+updateClock();
+setInterval(updateClock, 30000);
+render();
 </script>
 </body>
 </html>
